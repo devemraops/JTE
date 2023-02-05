@@ -13,7 +13,7 @@ void call() {
     String loglevel = config?.podman?.loglevel ?: 'debug'
     String deployReleaseStage = config?.podman?.deployReleaseStage ?: 'release'
     String deployStage = config?.podman?.deployStage ?: 'deployer'
-    String testStage = config?.podman?.testStage ?= 'tester'
+    // String testStage = config?.podman?.testStage ?= 'tester'
     String container = config?.podman?.container ?= 'podman'
     String jteVersion = config?.jteVersion ?: '1.0.0'
     String dockerfileName = config?.docker?.fileName?: 'docker/php-fpm/Dockerfile'
