@@ -1,4 +1,4 @@
-@StepAlias(['readiness','testing','deploying'])
+@StepAlias(['prepare_tools','source_test'])
 void call() {
     String stepName = 'prepare'
     String accountID = config?.accountID ?: '541906215541'
@@ -19,14 +19,14 @@ void call() {
     String codacyApiToken = config?.codacyApiToken?: 'CODACY_PROJECT_TOKEN'
 
     switch (stepName.name) {
-        case 'readiness':
+        case 'prepare_tools':
         stepName = 'prepare'
         break
-        case 'testing':
+        case 'source_test':
         stepName = 'test'
         break
-        case 'deploying':
-        stepName = 'deploy'
+        // case 'deploying':
+        // stepName = 'deploy'
         default
         error("step name must be readiness,testing and deploying got ${stepContext.name}")
     }
