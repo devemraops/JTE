@@ -97,7 +97,7 @@ void call() {
                     echo "{env.TRACE_MESSAGE} ${env.builDesc}"
                 }
                 env.versionNumber = env.TAG_NAME ? env.TAG_NAME.replace(tagPrefix, '').replace('testing-', '') : 'latest'
-                //def login = ecrLogin(registryIds: [accountId]).replace('docker','podman')
+                def login = ecrLogin(registryIds: [accountId]).replace('docker','podman')
                 echo "${env.TRACE_MESSAGE} checking existing images for version ${env.versionNumber}"
                 def images = ecrListImages(repositoryName: ecrRepoName)
                 env.deployableEnvs = 'staging'
