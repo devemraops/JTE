@@ -73,7 +73,7 @@ void call() {
                 env.releaseEnv = hasQaEnv ? 'qa' : 'staging'
                 env.dockerBuilArgs = "--events-backend=file --log-level=${dockerLogLevel}"
 
-                parameters: [[$class: 'StringParameterValue', name: 'NEW_RELIC_AGENT_VERSION', value: '']]
+                
                 // if (codacy != 'NONE') {
                 //     withCredentials([string(credentialsId: "${codacy}", variable: 'CODACY_TOKEN')]) {
                 //         codacyApiToken = CODACY_TOKEN
