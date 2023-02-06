@@ -44,7 +44,7 @@ void call() {
                         set -e +o pipefail;
                         echo \"${env.TRACE_MESSAGE} deploying to ${env.releaseEnv} ${applicationType}\";
                         export DOCKER_BUILDKIT=1;
-                        ${dockerinfo}
+                        ${dockerInfo}
                         echo \"${env.TRACE_MESSAGE} Logging to ECR on podman container\";
                         ${login}
                         echo \"${env.TRACE_MESSAGE} build via podman with build --target ${dockerStageTest} -t \"${env.fullECRRepoName}:testing\" ${env.dockerBuildArgs} -f ${dockerfileName} ${dockerfilePath}\";
