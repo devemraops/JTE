@@ -39,7 +39,7 @@ void call() {
                 // }
                 properties([
                     parameters([
-                        string(defaultValue: '', name: 'NEW_RELIC_AGENT_VERSION', trim: false),
+                        string(defaultValue: '', name: 'NEW_RELIC_AGENT_VERSION'),
                         string(defaultValue: '', name: 'IMAGE_RELEASE_TAG', description: 'what is the image tag'),
                         string(defaultValue: '', name: 'NEW_RELIC_NAME',  description: 'the name will be display on the NR UI')
                         // string(defaultValue: '11', description: '', name: 'Version', trim: false)
@@ -94,16 +94,16 @@ void call() {
                 // }
                
         } catch (Exception any) {
-            // env.TRACE_MESSAGE = "[JTE:ERROR:${stepName}]"
+            env.TRACE_MESSAGE = "[JTE:ERROR:${stepName}]"
             // String stackTrace = any.getStackTrace()
             // GString errorMessage = "${env.buildDesc} \nError: ${any.getMessage()}"
             // GString slackMessage = "${appName}: ${env.BRANCH_NAME} \nFailed at Stage : ${stepName}"
             // echo "${env.TRACE_MESSAGE} ${stackTrace}"
-            // if (showSlackNotifications) {
-            //         slackSend color: "danger", channel: "${slackChannel}", message: "${slackMessage}"
-            //     } else {
-            //         echo "${env.TRACE_MESSAGE} SlackMessage : \n${slackMessage}\nError : ${errorMessage}\n ${stackTrace}"
-            //     }
+            if (showSlackNotifications) {
+                    slackSend color: "danger", channel: "${slackChannel}", message: "${slackMessage}"
+                } else {
+                    echo "${env.TRACE_MESSAGE} SlackMessage : \n${slackMessage}\nError : ${errorMessage}\n ${stackTrace}"
+                }
             //     buildDescription("${env.TRACE_MESSAGE} ${errorMessage} \n StackTrace : ${stackTrace}")
             //     buildStatus = "Failed"
             //     throw any as Throwable
@@ -111,7 +111,7 @@ void call() {
     }
 }
 
-// static String successSlackIcon() {
-//     List<String> icons = [':unicorn_face:', ':beer:', ':bee:', ':man_dancing:', ':boogie-wookie:']
-//     return icons[new Random().nextInt(icons.size())]
-// }
+static String successSlackIcon() {
+    List<String> icons = [':unicorn_face:', ':beer:', ':bee:', ':man_dancing:', ':boogie-wookie:']
+    return icons[new Random().nextInt(icons.size())]
+}
