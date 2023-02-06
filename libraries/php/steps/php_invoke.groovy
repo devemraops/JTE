@@ -138,13 +138,13 @@ void call() {
                         sh(script: """#!/bin/bash
                         set -e +o pipefail;
                         ${env.VERBOSE_MESSAGE}
-                        echo \"${env.TRACE_MESSAGE} Running tests via podman via build --target ${dockerStageTest} -t \"${env.fullECRRepoName}:testing\" ${env.dockerBuildArgs} -f ${dockerfileName} ${dockerfilePath}\");
+                        echo \"${env.TRACE_MESSAGE} Running tests via podman via build --target ${dockerStageTest} -t \"${env.fullECRRepoName}:testing\" ${env.dockerBuildArgs} -f ${dockerfileName} ${dockerfilePath}\";
                         export DOCKER_BUILDKIT=1;
                         podman system prune -a --force;
                         echo \"${env.TRACE_MESSAGE} prune run\";
                         podman build --target ${dockerStageTest} -t \"${env.fullECRRepoName}:testing\" ${env.dockerBuildArgs} -f ${dockerfileName} ${dockerfilePath};
                         podman images prune -a --filter \"reference=${env.fullECRRepoName}*\";
-                    """, label: "Test Coverage"    
+                    """, label: "Test Coverage")    
                     } else {
                             echo "${env.TRACE_MESSAGE} test stage ignored for ${env.BRANCH_NAME}"
                         }
