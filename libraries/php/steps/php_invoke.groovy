@@ -161,7 +161,7 @@ void call() {
                 GString slackMessage = "${appName}: ${env.BRANCH_NAME} \nFailed at Stage : ${stepName}"
                 echo "${env.TRACE_MESSAGE} ${stackTrace}"
                 if (showSlackNotifications) {
-                    slackSend(color: "danger", channel: "${slackChannel}", message: "${slackMessage}"
+                    slackSend color: "danger", channel: "${slackChannel}", message: "${slackMessage}"
                 } else {
                     echo "${env.TRACE_MESSAGE} SlackMessage : \n${slackMessage}\nError : ${errorMessage}\n ${stackTrace}"
                 }
