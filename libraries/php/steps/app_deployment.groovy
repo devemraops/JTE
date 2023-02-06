@@ -43,7 +43,7 @@ void call() {
                     container(dockerContainer) {
                         def login = ecrLogin(registryIds: [accountId]).replace('docker','podman')
                         String dockerInfo = dockerLogLevel == 'debug' ? 'podman info --debug' : 'podman version'
-                        // echo "${env.TRACE_MESSAGE} Logged into ECR"
+                        echo "${env.TRACE_MESSAGE} Logged into ECR"
                         sh(script: """#!/bin/bash
                             set -e +o pipefail;                       
                             ${login} &&
