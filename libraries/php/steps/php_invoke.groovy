@@ -35,14 +35,6 @@ void call() {
         default:
         error("step name must be readiness,testing and deploying got ${stepContext.name}")
     }
-        properties([
-            parameters([
-                string(name: 'NEW_RELIC_AGENT_VERSION', defaultValue: '', description: 'what version new relic agent'),
-                string(name: 'NEW_RELIC_NAME', defaultValue: '', description: 'the name will be display on the NR UI'),
-                string(name: 'IMAGE_RELEASE_TAG', defaultValue: '', description: 'what is the image tag'),
-                choice(name: 'REGION', defaultValue: '' description: 'what is the region')
-            ])
-    ])
     stage(stepName) {
         try {
             env.TRACE_MESSAGE = "[JTE:${stepName}]"
