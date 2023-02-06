@@ -54,7 +54,7 @@ void call() {
                 // env.deployed = true
                 // env.builDesc += "\n${ecrUrl}"
                 // buildDescription("Updated Image : ${ecrRepoName}:${env.versionNumber} \nCommit : ${env.GIT_COMMIT}\nEnvironment: ${env.releaseEnv}\n")
-            } //else if (env.TAG_NAME) {
+            // } //else if (env.TAG_NAME) {
                 // echo "${env.TRACE_MESSAGE} ${env.buildDesc}"
                 // container(dockerContainer) {
                 //     def login = ecrLogin(registryIds: [accountId]).replace('docker','podman')
@@ -86,7 +86,7 @@ void call() {
             //     buildDescription("${env.TRACE_MESSAGE} ${errorMessage} \n StackTrace : ${stackTrace}")
             //     buildStatus = "Failed"
             //     throw any as Throwable
-            // }
+             }
     }
 }
 
