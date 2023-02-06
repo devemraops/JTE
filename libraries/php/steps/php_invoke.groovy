@@ -71,25 +71,25 @@ void call() {
                 env.masterBranch = env.CHANGE_TARGET? env.CHANGE_TARGET : env.BRANCH_NAME
                 env.releaseEnv = hasQaEnv ? 'qa' : 'staging'
                 env.dockerBuilArgs = "--events-backend=file --log-level=${dockerLogLevel}"
-                if (codacy != 'NONE') {
-                    withCredentials([string(credentialsId: "${codacy}", variable: 'CODACY_TOKEN')]) {
-                        codacyApiToken = CODACY_TOKEN
-                    }
-                    env.dockerBuilArgs += "--build-arg CODACY_API_TOKEN_ARG=${codacyApiToken}"
-                }
-                if (projectCodacy != 'NONE') {
-                    withCredentials([string(credentialsId: "${codacy}", variable: 'CODACY_TOKEN')]) {
-                        codacyProjectToken = CODACY__PROJECT_TOKEN
-                    }
-                    env.dockerBuilArgs += "--build-arg CODACY_PROJECT_TOKEN_ARG=${codacyProjectToken}"
-                }
-                if (newRelicToken != 'NONE') {
-                    withAWSParameterStore(naming: 'relative', path: "${newrelicParam}", recursive: true, region: "${region}") {
-                        newRelicApiKey = NEWRELIC_API_KEY
-                        newRelicToken = NEWRELIC_LICENCE_KEY
-                    }
-                    env.dockerBuilArgs += "--build-arg NR_TOKEN_ARG=${newRelicToken}"
-                }
+                // if (codacy != 'NONE') {
+                //     withCredentials([string(credentialsId: "${codacy}", variable: 'CODACY_TOKEN')]) {
+                //         codacyApiToken = CODACY_TOKEN
+                //     }
+                //     env.dockerBuilArgs += "--build-arg CODACY_API_TOKEN_ARG=${codacyApiToken}"
+                // }
+                // if (projectCodacy != 'NONE') {
+                //     withCredentials([string(credentialsId: "${codacy}", variable: 'CODACY_TOKEN')]) {
+                //         codacyProjectToken = CODACY__PROJECT_TOKEN
+                //     }
+                //     env.dockerBuilArgs += "--build-arg CODACY_PROJECT_TOKEN_ARG=${codacyProjectToken}"
+                // }
+                // if (newRelicToken != 'NONE') {
+                //     withAWSParameterStore(naming: 'relative', path: "${newrelicParam}", recursive: true, region: "${region}") {
+                //         newRelicApiKey = NEWRELIC_API_KEY
+                //         newRelicToken = NEWRELIC_LICENCE_KEY
+                //     }
+                //     env.dockerBuilArgs += "--build-arg NR_TOKEN_ARG=${newRelicToken}"
+                // }
                 env.NR_TOKEN = newRelicApiKey
                 env.ECR_AWS = "${env.ECR_AWS}/${ecrRepoName}"
                 if (env.VERBOSE_CI == "true") {
