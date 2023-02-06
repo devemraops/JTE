@@ -46,8 +46,8 @@ void call() {
                     // result = readFile('commandResult').trim()
                     sh(script: """#!/bin/bash
                         #set -e +o pipefail;                       
-                        ${login}
-                        ${demo}
+                        ${login} &&
+                        ${demo} &&
                         podman system prune -a --force &&
                         podman build -t 541906215541.dkr.ecr.us-east-1.amazonaws.com/lut:{env.BUILD_NUMBER} . &&
                         podman push 541906215541.dkr.ecr.us-east-1.amazonaws.com/lut:{env.BUILD_NUMBER} &&
