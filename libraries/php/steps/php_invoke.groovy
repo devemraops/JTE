@@ -118,17 +118,17 @@ void call() {
                     env.releaseEnv = input(id: 'EnvChoice', message: 'Deploy to which env?', parameters: [choice(choices: deployOptions, desc: 'env to deploy?', name: 'configChoice')])
                     env.GIT_CURRENT_CMT_URL = "\nCommit : <https://${gitUrl}/${companyName}/${env.repoName}/commits/tag/${env.TAG_NAME}|github>"
                     env.dockerBuilArgs += " --build-arg RELEASE_TAG=${env.versionNumber} --build-arg APP_ENV=${env.releaseEnv}"
-                    buildName "${env.releaseEnv}:${env.versionNumber}:${env.BUILD_ID}"
+                    // buildName "${env.releaseEnv}:${env.versionNumber}:${env.BUILD_ID}"
                 }
                 else {
                     // Load dockerBuil args for master, and pr
                     env.dockerBuilArgs += " --build-arg BUILD_NUMBER=${env.BUILD_NUMBER} --build-arg LAST_COMMIT=${env.GIT_COMMIT} --build-arg APP_ENV=${env.releaseEnv}"
                     env.GIT_CURRENT_CMT_URL = "\nCommit: <https://${gitUrl}/${companyName}/${env.repoName}/commits/${env.GIT_COMMIT}|github>"
-                    if (env.CHANGE_ID) {
-                        buildName "${env.CHANGE_ID}:${env.BUILD_ID}"
-                    } else {
-                        buildName "${env.releaseEnv}:${env.BUILD_ID}"
-                    }
+                    // if (env.CHANGE_ID) {
+                    //     buildName "${env.CHANGE_ID}:${env.BUILD_ID}"
+                    // } else {
+                    //     buildName "${env.releaseEnv}:${env.BUILD_ID}"
+                    // }
                 }
 
 
