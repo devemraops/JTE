@@ -39,8 +39,8 @@ void call() {
                 // }
                 container(dockerContainer) {
                     def login = ecrLogin(registryIds: [accountId]).replace('docker','podman')
-                     String dockerInfo = dockerLogLevel == 'debug' ? 'podman info --debug' : 'podman version'
-                    String demo = command == 'ls' ? 'pwd'
+                    String dockerInfo = dockerLogLevel == 'debug' ? 'podman info --debug' : 'podman version'
+                    String demo = command == 'ls' ? 'pwd' : 'podman version'
                     // echo "${env.TRACE_MESSAGE} Logged into ECR"
                     // sh "ls -l > commandResult"
                     // result = readFile('commandResult').trim()
