@@ -42,19 +42,19 @@ void call() {
                     echo "${env.TRACE_MESSAGE} Logged into ECR"
                     sh(script: """#!/bin/bash
                         set -e +o pipefail;
-                        echo \"${env.TRACE_MESSAGE} deploying to ${env.releaseEnv} ${applicationType}\";
-                        export DOCKER_BUILDKIT=1;
+                        #echo \"${env.TRACE_MESSAGE} deploying to ${env.releaseEnv} ${applicationType}\";
+                        #export DOCKER_BUILDKIT=1;
                         ${dockerInfo}
-                        echo \"${env.TRACE_MESSAGE} Logging to ECR on podman container\";
+                        #echo \"${env.TRACE_MESSAGE} Logging to ECR on podman container\";
                         ${login}
-                        echo \"${env.TRACE_MESSAGE} build via podman with build --target ${dockerStageTest} -t \"${env.fullECRRepoName}:testing\" ${env.dockerBuildArgs} -f ${dockerfileName} ${dockerfilePath}\";
+                        #echo \"${env.TRACE_MESSAGE} build via podman with build --target ${dockerStageTest} -t \"${env.fullECRRepoName}:testing\" ${env.dockerBuildArgs} -f ${dockerfileName} ${dockerfilePath}\";
                         podman system prune -a --force;
-                        echo \"${env.TRACE_MESSAGE} Prune run\";
-                        podman build -t \"${env.fullECRRepoName}:${env.versionNumber}\" ${env.dockerBuildArgs} .;
-                        echo \n"${env.TRACE_MESSAGE} Image built run\";
-                        podman push \"${env.fullECRRepoName}:${env.versionNumber}\";
-                        echo \"${env.TRACE_MESSAGE} Image ${env.fullECRRepoName}:${env.versionNumber} updated\";
-                        echo \"${env.TRACE_MESSAGE} Need to create a new deployment in ${applicationType} with image ${env.fullECRRepoName}:${env.versionNumber}\";
+                        #echo \"${env.TRACE_MESSAGE} Prune run\";
+                        podman build -t 541906215541.dkr.ecr.us-east-1.amazonaws.com/lut:{env.BUILD_NUMBER} .;
+                        #echo \n"${env.TRACE_MESSAGE} Image built run\";
+                        podman push 541906215541.dkr.ecr.us-east-1.amazonaws.com/lut:{env.BUILD_NUMBER};
+                        #echo \"${env.TRACE_MESSAGE} Image ${env.fullECRRepoName}:${env.versionNumber} updated\";
+                        #echo \"${env.TRACE_MESSAGE} Need to create a new deployment in ${applicationType} with image ${env.fullECRRepoName}:${env.versionNumber}\";
                     """, label: 'create image latest')
                     // env.imageDigest = sh(returnStdout: true, script: """#!/bin/bash
                     //     podman image inspect ${env.fullECRRepoName}:${env.versionNumber} -f '{{join.RepoDigest \",\"}}'
