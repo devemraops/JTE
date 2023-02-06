@@ -27,7 +27,7 @@ void call() {
         try {
             env.TRACE_MESSAGE = "[JTE:${stepName}]"
             echo "${env.TRACE_MESSAGE}- Started for ${applicationType}"
-            if (applicationType == 'eks' || applicationType == 'ecr' || applicationType = 'ecs') {
+            if (applicationType == 'eks' || applicationType == 'ecr' || applicationType == 'ecs') {
                 GString ecrUrl = "<https://${region}.console.aws.amazon.com/ecr/repositories/private/${accountId}/${ecrRepoName}?region=${region}|ECR>"
                 }
             if ((env.BRANCH_NAME == env.masterBranch || env.TAG_NAME) && env.releaseEnv == 'qa') {
