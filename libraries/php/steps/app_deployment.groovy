@@ -39,23 +39,23 @@ void call() {
                 // }
                 if (stepName == 'build') {
                     def scmVars = checkout scm
-                }
-                container(dockerContainer) {
-                    def login = ecrLogin(registryIds: [accountId]).replace('docker','podman')
-                    String dockerInfo = dockerLogLevel == 'debug' ? 'podman info --debug' : 'podman version'
-                    // echo "${env.TRACE_MESSAGE} Logged into ECR"
-                    sh(script: """#!/bin/bash
-                        set -e +o pipefail;                       
-                        ${login} &&
-                        podman system prune -a --force &&
-                        podman build -t 541906215541.dkr.ecr.us-east-1.amazonaws.com/lut:${BUILD_NUMBER} . &&
-                        podman push 541906215541.dkr.ecr.us-east-1.amazonaws.com/lut:${BUILD_NUMBER}
-                    """, label: 'create image latest')
-                    // env.imageDigest = sh(returnStdout: true, script: """#!/bin/bash
-                    //     podman image inspect ${env.fullECRRepoName}:${env.versionNumber} -f '{{join.RepoDigest \",\"}}'
-                    //     """, label: 'Get digest in place sync').trim()
-                }
                 
+                    container(dockerContainer) {
+                        def login = ecrLogin(registryIds: [accountId]).replace('docker','podman')
+                        String dockerInfo = dockerLogLevel == 'debug' ? 'podman info --debug' : 'podman version'
+                        // echo "${env.TRACE_MESSAGE} Logged into ECR"
+                        sh(script: """#!/bin/bash
+                            set -e +o pipefail;                       
+                            ${login} &&
+                            podman system prune -a --force &&
+                            podman build -t 541906215541.dkr.ecr.us-east-1.amazonaws.com/lut:${BUILD_NUMBER} . &&
+                            podman push 541906215541.dkr.ecr.us-east-1.amazonaws.com/lut:${BUILD_NUMBER}
+                        """, label: 'create image latest')
+                        // env.imageDigest = sh(returnStdout: true, script: """#!/bin/bash
+                        //     podman image inspect ${env.fullECRRepoName}:${env.versionNumber} -f '{{join.RepoDigest \",\"}}'
+                        //     """, label: 'Get digest in place sync').trim()
+                    }
+                }
                 // env.deployed = true
                 // env.builDesc += "\n${ecrUrl}"
                 // buildDescription("Updated Image : ${ecrRepoName}:${env.versionNumber} \nCommit : ${env.GIT_COMMIT}\nEnvironment: ${env.releaseEnv}\n")
