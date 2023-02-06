@@ -19,7 +19,7 @@ void call() {
     String dockerfileName = config?.docker?.fileName?: 'docker/php-fpm/Dockerfile'
     String dockerfilePath = config?.docker?.filePath?: 'docker/php-fpm/.'
     String dockerStageDeploy =config?.docker?.deployStage?: 'final'
-    String dockerContainer = config?.dockerContainer?:'podman-container'
+    String dockerContainer = config?.dockerContainer?:'podman'
     String dockerLogLevel = config?.dockerLogLevel?: 'debug' //warn
     String codacyApiToken = config?.codacyApiToken?: 'CODACY_PROJECT_TOKEN'
 
