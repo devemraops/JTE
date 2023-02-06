@@ -47,15 +47,7 @@ void call() {
                 ])
 
                 if (stepName == 'build') {
-                        // properties([
-                        //     parameters([
-                        //         string(name: 'NEW_RELIC_AGENT_VERSION', defaultValue: '', description: 'what version new relic agent'),
-                        //         string(name: 'NEW_RELIC_NAME', defaultValue: '', description: 'the name will be display on the NR UI'),
-                        //         string(name: 'IMAGE_RELEASE_TAG', defaultValue: '', description: 'what is the image tag'),
-                        //         choice(name: 'REGION', defaultValue: '' description: 'what is the region')
-                        //     ])
-                        // ])
-                        def scmVars = checkout scm
+                    def scmVars = checkout scm
                     container(dockerContainer) {
                         def login = ecrLogin(registryIds: [accountId]).replace('docker','podman')
                         String dockerInfo = dockerLogLevel == 'debug' ? 'podman info --debug' : 'podman version'
@@ -95,8 +87,8 @@ void call() {
                
         } catch (Exception any) {
             env.TRACE_MESSAGE = "[JTE:ERROR:${stepName}]"
-            // String stackTrace = any.getStackTrace()
-            // GString errorMessage = "${env.buildDesc} \nError: ${any.getMessage()}"
+            String stackTrace = any.getStackTrace()
+            GString errorMessage = "${env.buildDesc} \nError: ${any.getMessage()}"
             GString slackMessage = "${appName}: ${env.BRANCH_NAME} \nFailed at Stage : ${stepName}"
             // echo "${env.TRACE_MESSAGE} ${stackTrace}"
             if (showSlackNotifications) {
@@ -104,9 +96,9 @@ void call() {
                 } else {
                     echo "${env.TRACE_MESSAGE} SlackMessage : \n${slackMessage}\nError : ${errorMessage}\n ${stackTrace}"
                 }
-            //     buildDescription("${env.TRACE_MESSAGE} ${errorMessage} \n StackTrace : ${stackTrace}")
-            //     buildStatus = "Failed"
-            //     throw any as Throwable
+                buildDescription("${env.TRACE_MESSAGE} ${errorMessage} \n StackTrace : ${stackTrace}")
+                buildStatus = "Failed"
+                throw any as Throwable
              }
     }
 }
