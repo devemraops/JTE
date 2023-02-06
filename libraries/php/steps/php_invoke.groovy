@@ -15,6 +15,7 @@ void call() {
     String testStage = config?.podman?.testStage ?: 'tester'
     String container = config?.podman?.container ?: 'podman-container'
     String jteVersion = config?.jteVersion ?: '1.0.0'
+    String showSlackNotifications =config?.showSlackNotifications == true
     String dockerLogLevel = config?.dockerLogLevel?: 'debug' //warn
     String codacyApiToken = config?.codacyApiToken?: 'CODACY_PROJECT_TOKEN'
 
