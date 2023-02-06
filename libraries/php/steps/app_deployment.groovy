@@ -39,21 +39,15 @@ void call() {
                 // }
                 properties([
                     parameters([
-                        string(defaultValue: '', name: 'NEW_RELIC_AGENT_VERSION', trim: false),  
-                        // string(defaultValue: '11', description: '', name: 'Version', trim: false)
+                        string(name: 'NEW_RELIC_AGENT_VERSION', defaultValue: '', description: 'what version new relic agent'),
+                        string(name: 'NEW_RELIC_NAME', defaultValue: '', description: 'the name will be display on the NR UI'),
+                        string(name: 'IMAGE_RELEASE_TAG', defaultValue: '', description: 'what is the image tag'),
+                        choice(name: 'REGION', defaultValue: '' description: 'what is the region')
                     ])
                 ])
 
                 if (stepName == 'build') {
-                        properties([
-                            parameters([
-                                string(name: 'NEW_RELIC_AGENT_VERSION', defaultValue: '', description: 'what version new relic agent'),
-                                string(name: 'NEW_RELIC_NAME', defaultValue: '', description: 'the name will be display on the NR UI'),
-                                string(name: 'IMAGE_RELEASE_TAG', defaultValue: '', description: 'what is the image tag'),
-                                choice(name: 'REGION', defaultValue: '' description: 'what is the region')
-                            ])
-                        ])
-                        def scmVars = checkout scm
+                    def scmVars = checkout scm
                     container(dockerContainer) {
                         def login = ecrLogin(registryIds: [accountId]).replace('docker','podman')
                         String dockerInfo = dockerLogLevel == 'debug' ? 'podman info --debug' : 'podman version'
