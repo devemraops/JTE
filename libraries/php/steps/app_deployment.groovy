@@ -37,14 +37,6 @@ void call() {
                 // if (env.latestDigest != 'none') {
                 //     ecrDeleteImage(repositoryName: ecrRepoName, registryIds: [accountId], imageIds: [['imageDigest': env.latestDigest, 'imageTag': env.versionNumber]])
                 // }
-                properties([
-                    parameters([
-                        string(name: 'NEW_RELIC_AGENT_VERSION', defaultValue: '', description: 'what version new relic agent'),
-                        string(name: 'NEW_RELIC_NAME', defaultValue: '', description: 'the name will be display on the NR UI'),
-                        string(name: 'IMAGE_RELEASE_TAG', defaultValue: '', description: 'what is the image tag'),
-                        choice(name: 'REGION', defaultValue: '' description: 'what is the region')
-                    ])
-                ])
 
                 if (stepName == 'build') {
                     def scmVars = checkout scm
