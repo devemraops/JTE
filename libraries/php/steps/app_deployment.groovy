@@ -97,7 +97,7 @@ void call() {
             env.TRACE_MESSAGE = "[JTE:ERROR:${stepName}]"
             // String stackTrace = any.getStackTrace()
             // GString errorMessage = "${env.buildDesc} \nError: ${any.getMessage()}"
-            // GString slackMessage = "${appName}: ${env.BRANCH_NAME} \nFailed at Stage : ${stepName}"
+            GString slackMessage = "${appName}: ${env.BRANCH_NAME} \nFailed at Stage : ${stepName}"
             // echo "${env.TRACE_MESSAGE} ${stackTrace}"
             if (showSlackNotifications) {
                     slackSend color: "danger", channel: "${slackChannel}", message: "${slackMessage}"
