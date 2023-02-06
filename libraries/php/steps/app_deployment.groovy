@@ -37,6 +37,9 @@ void call() {
                 // if (env.latestDigest != 'none') {
                 //     ecrDeleteImage(repositoryName: ecrRepoName, registryIds: [accountId], imageIds: [['imageDigest': env.latestDigest, 'imageTag': env.versionNumber]])
                 // }
+                if (stepName == 'prepare') {
+                    def scmVars = checkout scm
+                }
                 container(dockerContainer) {
                     def login = ecrLogin(registryIds: [accountId]).replace('docker','podman')
                     String dockerInfo = dockerLogLevel == 'debug' ? 'podman info --debug' : 'podman version'
