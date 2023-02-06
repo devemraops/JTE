@@ -11,6 +11,7 @@ void call() {
     String applicationType = config?.applicationType ?: 'eks'
     String varScript = config?.varScript? 'printenv;' : ""
     String loglevel = config?.podman?.loglevel ?: 'debug'
+    String companyName = config?.companyName?: 'devemraops'
     String deployReleaseStage = config?.podman?.deployReleaseStage ?: 'release'
     String deployStage = config?.podman?.deployStage ?: 'deployer'
     String testStage = config?.podman?.testStage ?: 'tester'
