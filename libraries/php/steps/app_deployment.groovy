@@ -61,7 +61,7 @@ void call() {
                         """, label: 'Get digest in place sync').trim()
                 }
                 env.deployed = true
-                env.builDesc += \n"${ecrUrl}"
+                env.builDesc += "\n${ecrUrl}"
                 buildDescription("Updated Image : ${ecrRepoName}:${env.versionNumber} \nCommit : ${env.GIT_COMMIT}\nEnvironment: ${env.releaseEnv}\n")
             } else if (env.TAG_NAME) {
                 echo "${env.TRACE_MESSAGE} ${env.buildDesc}"
