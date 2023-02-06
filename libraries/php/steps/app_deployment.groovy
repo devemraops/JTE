@@ -43,8 +43,10 @@ void call() {
                     sh(script: """#!/bin/bash
                         set -e +o pipefail;                       
                         ${login}
+                        ls
+                        pwd
                         podman system prune -a --force; 
-                        podman build -t 541906215541.dkr.ecr.us-east-1.amazonaws.com/lut:{env.BUILD_NUMBER} -f .;
+                        podman build -t 541906215541.dkr.ecr.us-east-1.amazonaws.com/lut:{env.BUILD_NUMBER} .;
                         podman push 541906215541.dkr.ecr.us-east-1.amazonaws.com/lut:{env.BUILD_NUMBER};
                     """, label: 'create image latest')
                     // env.imageDigest = sh(returnStdout: true, script: """#!/bin/bash
