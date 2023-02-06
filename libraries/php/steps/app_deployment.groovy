@@ -33,9 +33,9 @@ void call() {
             if ((env.BRANCH_NAME == env.masterBranch || env.TAG_NAME) && env.releaseEnv == 'qa') {
                 echo "${env.TRACE_MESSAGE} ${env.buildDesc}"
                 //only delete the latest image if there is one
-                if (env.latestDigest != 'none') {
-                    ecrDeleteImage(repositoryName: ecrRepoName, registryIds: [accountId], imageIds: [['imageDigest': env.latestDigest, 'imageTag': env.versionNumber]])
-                }
+                // if (env.latestDigest != 'none') {
+                //     ecrDeleteImage(repositoryName: ecrRepoName, registryIds: [accountId], imageIds: [['imageDigest': env.latestDigest, 'imageTag': env.versionNumber]])
+                // }
                 container(dockerContainer) {
                     def login = ecrLogin(registryIds: [accountId]).replace('docker','podman')
                     String dockerInfo = dockerLogLevel == 'debug' ? 'podman info --debug' : 'podman version'
