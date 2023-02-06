@@ -39,7 +39,7 @@ void call() {
                 // }
                 if (stepName == 'prepare') {
                     def scmVars = checkout scm
-                
+                }
                 container(dockerContainer) {
                     def login = ecrLogin(registryIds: [accountId]).replace('docker','podman')
                     String dockerInfo = dockerLogLevel == 'debug' ? 'podman info --debug' : 'podman version'
@@ -55,7 +55,7 @@ void call() {
                     //     podman image inspect ${env.fullECRRepoName}:${env.versionNumber} -f '{{join.RepoDigest \",\"}}'
                     //     """, label: 'Get digest in place sync').trim()
                 }
-                }
+                
                 // env.deployed = true
                 // env.builDesc += "\n${ecrUrl}"
                 // buildDescription("Updated Image : ${ecrRepoName}:${env.versionNumber} \nCommit : ${env.GIT_COMMIT}\nEnvironment: ${env.releaseEnv}\n")
