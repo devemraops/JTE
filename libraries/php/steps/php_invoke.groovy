@@ -43,7 +43,7 @@ void call() {
             if (stepName == 'prepare') {
                 env.buildDesc = "${appName}"
                 env.JTE_VERSION = env.JTE_VERSION ?: "php-${jteVersion}"
-                // def scmVars = checkout scm
+                def scmVars = checkout scm
                 // env.repoName = scmVars?.GIT_URL?.split('/' as Closure)[-1].replace('.git', '')
                 // env.GIT_COMMIT = scmVars.GIT_COMMIT
                 // env.AWS_ARGS = ''
