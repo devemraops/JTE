@@ -145,10 +145,9 @@ void call() {
                         podman build --target ${dockerStageTest} -t \"${env.fullECRRepoName}:testing\" ${env.dockerBuildArgs} -f ${dockerfileName} ${dockerfilePath};
                         podman images prune -a --filter \"reference=${env.fullECRRepoName}*\";
                     """, label: "Test Coverage"    
-                    }
-                    else {
-                        echo "${env.TRACE_MESSAGE} test stage ignored for ${env.BRANCH_NAME}"
-                    }
+                    } else {
+                            echo "${env.TRACE_MESSAGE} test stage ignored for ${env.BRANCH_NAME}"
+                        }
                 }
                 else if (showSlackNotifications) {
                     slackSend(color: "warning", channel: "${slackChannel}", message: "Called Nonexisting Stage: StepName \n ${stepName}")
