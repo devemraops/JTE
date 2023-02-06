@@ -90,7 +90,7 @@ void call() {
                 //     }
                 //     env.dockerBuilArgs += "--build-arg NR_TOKEN_ARG=${newRelicToken}"
                 // }
-                env.NR_TOKEN = newRelicApiKey
+                // env.NR_TOKEN = newRelicApiKey
                 env.ECR_AWS = "${env.ECR_AWS}/${ecrRepoName}"
                 if (env.VERBOSE_CI == "true") {
                     echo "{env.TRACE_MESSAGE} ${env.builDesc}"
