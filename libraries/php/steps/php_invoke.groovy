@@ -4,6 +4,7 @@ void call() {
     String accountID = config?.accountID ?: '541906215541'
     String region = config?.region ?: 'us-east-1'
     String ecrRepoName = config?.ecrRepoName ?: 'lut'
+    String gitUrl = config?.gitUrl ?: 'github.com'
     String appUrl = config?.appUrl ?: 'health'
     String appName = config?.appName ?: 'lut'
     String tagPrefix = config?.tagPrefix ?: 'lut-'
