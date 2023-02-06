@@ -34,9 +34,9 @@ void call() {
             // if ((env.BRANCH_NAME == env.masterBranch || env.TAG_NAME) && env.releaseEnv == 'qa') {
                 // echo "${env.TRACE_MESSAGE} ${env.buildDesc}"
                 //only delete the latest image if there is one
-                if (env.latestDigest != 'none') {
-                    ecrDeleteImage(repositoryName: ecrRepoName, registryIds: [accountId], imageIds: [['imageDigest': env.latestDigest, 'imageTag': env.versionNumber]])
-                }
+                // if (env.latestDigest != 'none') {
+                //     ecrDeleteImage(repositoryName: ecrRepoName, registryIds: [accountId], imageIds: [['imageDigest': env.latestDigest, 'imageTag': env.versionNumber]])
+                // }
                 if (stepName == 'build') {
                     def scmVars = checkout scm
                 
@@ -48,7 +48,7 @@ void call() {
                             set -e +o pipefail;                       
                             ${login} &&
                             podman system prune -a --force &&
-                            podman build -t 541906215541.dkr.ecr.us-east-1.amazonaws.com/lut:${BUILD_ID} -t latest . &&
+                            podman build -t 541906215541.dkr.ecr.us-east-1.amazonaws.com/lut:${BUILD_ID} . &&
                             podman push 541906215541.dkr.ecr.us-east-1.amazonaws.com/lut:${BUILD_ID}
                         """, label: 'create image latest')
                         // env.imageDigest = sh(returnStdout: true, script: """#!/bin/bash
