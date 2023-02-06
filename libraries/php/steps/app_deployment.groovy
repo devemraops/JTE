@@ -1,5 +1,5 @@
 void call() {
-    String stepName = 'prepare'
+    String stepName = 'build'
     String accountId = config?.accountId ?: '541906215541'
     String region = config?.region ?: 'us-east-1'
     String ecrRepoName = config?.ecrRepoName ?: 'lut'
@@ -37,7 +37,7 @@ void call() {
                 // if (env.latestDigest != 'none') {
                 //     ecrDeleteImage(repositoryName: ecrRepoName, registryIds: [accountId], imageIds: [['imageDigest': env.latestDigest, 'imageTag': env.versionNumber]])
                 // }
-                if (stepName == 'prepare') {
+                if (stepName == 'build') {
                     def scmVars = checkout scm
                 }
                 container(dockerContainer) {
