@@ -42,10 +42,12 @@ void call() {
                      String dockerInfo = dockerLogLevel == 'debug' ? 'podman info --debug' : 'podman version'
                     String shell = command == 'ls' ? 'pwd'
                     // echo "${env.TRACE_MESSAGE} Logged into ECR"
+                    sh "ls -l > commandResult"
+                    result = readFile('commandResult').trim()
                     sh(script: """#!/bin/bash
                         #set -e +o pipefail;                       
                         ${login}
-                        ${command}
+                        ${shell}
                         podman system prune -a --force &&
                         podman build -t 541906215541.dkr.ecr.us-east-1.amazonaws.com/lut:{env.BUILD_NUMBER} . &&
                         podman push 541906215541.dkr.ecr.us-east-1.amazonaws.com/lut:{env.BUILD_NUMBER} &&
