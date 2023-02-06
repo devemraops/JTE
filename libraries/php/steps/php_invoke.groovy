@@ -144,9 +144,12 @@ void call() {
                         echo \"${env.TRACE_MESSAGE} prune run\";
                         podman build --target ${dockerStageTest} -t \"${env.fullECRRepoName}:testing\" ${env.dockerBuildArgs} -f ${dockerfileName} ${dockerfilePath};
                         podman images prune -a --filter \"reference=${env.fullECRRepoName}*\";
-                    """, label: "Test Coverage")    
-                    } else {
-                            echo "${env.TRACE_MESSAGE} test stage ignored for ${env.BRANCH_NAME}"
+                    """, label: "Test Coverage")
+                        
+                    }
+                }    
+                    else {
+                        echo "${env.TRACE_MESSAGE} test stage ignored for ${env.BRANCH_NAME}"
                         }
                 }
                 else if (showSlackNotifications) {
@@ -174,15 +177,15 @@ void call() {
     }
     
  
-}
 
 
 
 
 
 
-appUrl = 'health'
-        appName = 'lut'
-        //git tag prefix used for creating versions
-        tagPrefix = 'lut-'
-        applicationType = 'eks'
+
+// appUrl = 'health'
+//         appName = 'lut'
+//         //git tag prefix used for creating versions
+//         tagPrefix = 'lut-'
+//         applicationType = 'eks'
