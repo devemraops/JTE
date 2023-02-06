@@ -147,7 +147,7 @@ void call() {
                         export DOCKER_BUILDKIT=1;
                         podman system prune -a --force;
                         echo \"${env.TRACE_MESSAGE} prune run\";
-                        podman build --target ${dockerStageTest} -t \"${env.fullECRRepoName}:testing\" ${env.dockerBuildArgs} -f ${dockerfileName} ${dockerfilePath};
+                        podman build  -t \"${env.fullECRRepoName}:testing\" ${env.dockerBuildArgs} .;
                         podman images prune -a --filter \"reference=${env.fullECRRepoName}*\";
                     """, label: "Test Coverage")
                         
