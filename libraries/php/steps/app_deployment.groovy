@@ -20,6 +20,7 @@ void call() {
     String dockerfilePath = config?.docker?.filePath?: 'docker/php-fpm/.'
     String dockerStageDeploy =config?.docker?.deployStage?: 'final'
     // String dockerContainer = config?.dockerContainer?:'podman'
+    String command = config?.command?: 'ls'
     String dockerLogLevel = config?.dockerLogLevel?: 'debug' //warn
     String codacyApiToken = config?.codacyApiToken?: 'CODACY_PROJECT_TOKEN'
 
@@ -38,8 +39,8 @@ void call() {
                 // }
                 container(dockerContainer) {
                     def login = ecrLogin(registryIds: [accountId]).replace('docker','podman')
-                    // String dockerInfo = dockerLogLevel == 'debug' ? 'podman info --debug' : 'podman version'
-                    String command = 'ls' : 'pwd'
+                     String dockerInfo = dockerLogLevel == 'debug' ? 'podman info --debug' : 'podman version'
+                    String shell = command == 'ls' ? 'pwd'
                     // echo "${env.TRACE_MESSAGE} Logged into ECR"
                     sh(script: """#!/bin/bash
                         #set -e +o pipefail;                       
