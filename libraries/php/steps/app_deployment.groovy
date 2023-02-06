@@ -56,9 +56,9 @@ void call() {
                         echo \"${env.TRACE_MESSAGE} Image ${env.fullECRRepoName}:${env.versionNumber} updated\";
                         echo \"${env.TRACE_MESSAGE} Need to create a new deployment in ${applicationType} with image ${env.fullECRRepoName}:${env.versionNumber}\";
                     """, label: 'create image latest')
-                    env.imageDigest = sh(returnStdout: true, script: """#!/bin/bash
-                        podman image inspect ${env.fullECRRepoName}:${env.versionNumber} -f '{{join.RepoDigest \",\"}}'
-                        """, label: 'Get digest in place sync').trim()
+                    // env.imageDigest = sh(returnStdout: true, script: """#!/bin/bash
+                    //     podman image inspect ${env.fullECRRepoName}:${env.versionNumber} -f '{{join.RepoDigest \",\"}}'
+                    //     """, label: 'Get digest in place sync').trim()
                 }
                 env.deployed = true
                 env.builDesc += "\n${ecrUrl}"
