@@ -18,13 +18,13 @@ void call() {
     String dockerLogLevel = config?.dockerLogLevel?: 'debug' //warn
     String codacyApiToken = config?.codacyApiToken?: 'CODACY_PROJECT_TOKEN'
 
-    switch (stepName.name) {
+    switch (stepContext.name) {
         case 'prepare_tools':
-        stepName = 'prepare'
-        break
+            stepName = 'prepare'
+            break
         case 'source_test':
-        stepName = 'test'
-        break
+            stepName = 'test'
+            break
         // case 'deploying':
         // stepName = 'deploy'
         default:
