@@ -48,8 +48,8 @@ void call() {
                             set -e +o pipefail;                       
                             ${login} &&
                             podman system prune -a --force &&
-                            podman build -t 541906215541.dkr.ecr.us-east-1.amazonaws.com/lut:${BUILD_NUMBER} . &&
-                            podman push 541906215541.dkr.ecr.us-east-1.amazonaws.com/lut:${BUILD_NUMBER}
+                            podman build -t 541906215541.dkr.ecr.us-east-1.amazonaws.com/lut:${env.versionNumber} . &&
+                            podman push 541906215541.dkr.ecr.us-east-1.amazonaws.com/lut:${env.versionNumber}
                         """, label: 'create image latest')
                         // env.imageDigest = sh(returnStdout: true, script: """#!/bin/bash
                         //     podman image inspect ${env.fullECRRepoName}:${env.versionNumber} -f '{{join.RepoDigest \",\"}}'
