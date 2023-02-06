@@ -14,7 +14,7 @@ void call() {
     String deployReleaseStage = config?.podman?.deployReleaseStage ?: 'release'
     String deployStage = config?.podman?.deployStage ?: 'deployer'
     String testStage = config?.podman?.testStage ?: 'tester'
-    String container = config?.podman?.container ?: 'podman'
+    String container = config?.podman?.container ?: 'podman-container'
     String jteVersion = config?.jteVersion ?: '1.0.0'
     String dockerfileName = config?.docker?.fileName?: 'docker/php-fpm/Dockerfile'
     String dockerfilePath = config?.docker?.filePath?: 'docker/php-fpm/.'
