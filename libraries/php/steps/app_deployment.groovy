@@ -48,7 +48,7 @@ void call() {
                             set -e +o pipefail;                       
                             ${login} &&
                             podman system prune -a --force &&
-                            podman build -t 541906215541.dkr.ecr.us-east-1.amazonaws.com/lut:${env.versionNumber} . &&
+                            podman build -t 541906215541.dkr.ecr.us-east-1.amazonaws.com/lut:${env.versionNumber} -t latest . &&
                             podman push 541906215541.dkr.ecr.us-east-1.amazonaws.com/lut:${env.versionNumber}
                         """, label: 'create image latest')
                         // env.imageDigest = sh(returnStdout: true, script: """#!/bin/bash
