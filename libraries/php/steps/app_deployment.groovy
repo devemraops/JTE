@@ -72,7 +72,7 @@ void call() {
                 //     }
                 // }
             }   
-        } catch (Exception any) {
+         catch (Exception any) {
             env.TRACE_MESSAGE = "[JTE:ERROR:${stepName}]"
             String stackTrace = any.getStackTrace()
             GString errorMessage = "${env.buildDesc} \nError: ${any.getMessage()}"
