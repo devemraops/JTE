@@ -41,7 +41,7 @@ void call() {
                     parameters([
                         string(defaultValue: '', name: 'NEW_RELIC_AGENT_VERSION', trim: false),
                         string(defaultValue: '', name: 'IMAGE_RELEASE_TAG', description: 'what is the image tag'),
-                        string(name: 'NEW_RELIC_NAME', defaultValue: '', description: 'the name will be display on the NR UI')
+                        string(defaultValue: '', name: 'NEW_RELIC_NAME',  description: 'the name will be display on the NR UI')
                         // string(defaultValue: '11', description: '', name: 'Version', trim: false)
                     ])
                 ])
