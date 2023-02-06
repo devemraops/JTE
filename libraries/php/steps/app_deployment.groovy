@@ -45,12 +45,6 @@ void call() {
                 ])
 
                 if (stepName == 'build') {
-                    properties([
-                        parameters([
-                            string(name: 'NEW_RELIC_AGENT_VERSION', defaultValue: '')
-                            string(name:'NEW_RELIC_NAME', defaultValue: '')
-                        ])
-                    ])
                     def scmVars = checkout scm
                 
                     container(dockerContainer) {
