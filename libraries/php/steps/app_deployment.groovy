@@ -25,12 +25,12 @@ void call() {
 
     stage(stepName) {
         try {
-            env.TRACE_MESSAGE = "[JTE:${stepName}]"
+            // env.TRACE_MESSAGE = "[JTE:${stepName}]"
             // echo "${env.TRACE_MESSAGE}- Started for ${applicationType}"
-            if (applicationType == 'eks' || applicationType == 'ecr' || applicationType == 'ecs') {
-                GString ecrUrl = "<https://${region}.console.aws.amazon.com/ecr/repositories/private/${accountId}/${ecrRepoName}?region=${region}|ECR>"
+            // if (applicationType == 'eks' || applicationType == 'ecr' || applicationType == 'ecs') {
+                // GString ecrUrl = "<https://${region}.console.aws.amazon.com/ecr/repositories/private/${accountId}/${ecrRepoName}?region=${region}|ECR>"
                 }
-            if ((env.BRANCH_NAME == env.masterBranch || env.TAG_NAME) && env.releaseEnv == 'qa') {
+            // if ((env.BRANCH_NAME == env.masterBranch || env.TAG_NAME) && env.releaseEnv == 'qa') {
                 // echo "${env.TRACE_MESSAGE} ${env.buildDesc}"
                 //only delete the latest image if there is one
                 // if (env.latestDigest != 'none') {
@@ -38,48 +38,39 @@ void call() {
                 // }
                 container(dockerContainer) {
                     def login = ecrLogin(registryIds: [accountId]).replace('docker','podman')
-                    String dockerInfo = dockerLogLevel == 'debug' ? 'podman info --debug' : 'podman version'
-                    echo "${env.TRACE_MESSAGE} Logged into ECR"
+                    // String dockerInfo = dockerLogLevel == 'debug' ? 'podman info --debug' : 'podman version'
+                    // echo "${env.TRACE_MESSAGE} Logged into ECR"
                     sh(script: """#!/bin/bash
-                        set -e +o pipefail;
-                        #echo \"${env.TRACE_MESSAGE} deploying to ${env.releaseEnv} ${applicationType}\";
-                        #export DOCKER_BUILDKIT=1;
-                        ${dockerInfo}
-                        #echo \"${env.TRACE_MESSAGE} Logging to ECR on podman container\";
+                        set -e +o pipefail;                       
                         ${login}
-                        #echo \"${env.TRACE_MESSAGE} build via podman with build --target ${dockerStageTest} -t \"${env.fullECRRepoName}:testing\" ${env.dockerBuildArgs} -f ${dockerfileName} ${dockerfilePath}\";
-                        podman system prune -a --force;
-                        #echo \"${env.TRACE_MESSAGE} Prune run\";
-                        podman build -t 541906215541.dkr.ecr.us-east-1.amazonaws.com/lut:{env.BUILD_NUMBER} .;
-                        #echo \n"${env.TRACE_MESSAGE} Image built run\";
+                        podman system prune -a --force; 
+                        podman build -t 541906215541.dkr.ecr.us-east-1.amazonaws.com/lut:{env.BUILD_NUMBER} -f .;
                         podman push 541906215541.dkr.ecr.us-east-1.amazonaws.com/lut:{env.BUILD_NUMBER};
-                        #echo \"${env.TRACE_MESSAGE} Image ${env.fullECRRepoName}:${env.versionNumber} updated\";
-                        #echo \"${env.TRACE_MESSAGE} Need to create a new deployment in ${applicationType} with image ${env.fullECRRepoName}:${env.versionNumber}\";
                     """, label: 'create image latest')
                     // env.imageDigest = sh(returnStdout: true, script: """#!/bin/bash
                     //     podman image inspect ${env.fullECRRepoName}:${env.versionNumber} -f '{{join.RepoDigest \",\"}}'
                     //     """, label: 'Get digest in place sync').trim()
                 }
-                env.deployed = true
-                env.builDesc += "\n${ecrUrl}"
-                buildDescription("Updated Image : ${ecrRepoName}:${env.versionNumber} \nCommit : ${env.GIT_COMMIT}\nEnvironment: ${env.releaseEnv}\n")
-            } else if (env.TAG_NAME) {
-                echo "${env.TRACE_MESSAGE} ${env.buildDesc}"
-                container(dockerContainer) {
-                    def login = ecrLogin(registryIds: [accountId]).replace('docker','podman')
-                    if (env.deployableEnvs != 'any') {
-                        sh(script: """#!/bin/bash
-                            set -e +o pipefail;
-                            ${env.VERBOSE_CI}
-                            export DOCKER_BUILDKIT=1;
-                            ${login} 1> /dev/null;
-                            podman system prune -a --force;
-                            podman build --target ${dockerStageDeploy} -t \"${env.fullECRRepoName}:${env.versionNumber}\" ${env.dockerBuildArgs} -f ${dockerfileName} ${dockerfilePath};
-                            """, label: 'Update Release Environment')
-                    } else {
-                        echo "${env.TRACE_MESSAGE} Image ${ecrRepoName}:${versionNumber} already exists"
-                    }
-                }
+                // env.deployed = true
+                // env.builDesc += "\n${ecrUrl}"
+                // buildDescription("Updated Image : ${ecrRepoName}:${env.versionNumber} \nCommit : ${env.GIT_COMMIT}\nEnvironment: ${env.releaseEnv}\n")
+            } //else if (env.TAG_NAME) {
+                // echo "${env.TRACE_MESSAGE} ${env.buildDesc}"
+                // container(dockerContainer) {
+                //     def login = ecrLogin(registryIds: [accountId]).replace('docker','podman')
+                //     if (env.deployableEnvs != 'any') {
+                //         sh(script: """#!/bin/bash
+                //             set -e +o pipefail;
+                //             ${env.VERBOSE_CI}
+                //             export DOCKER_BUILDKIT=1;
+                //             ${login} 1> /dev/null;
+                //             podman system prune -a --force;
+                //             podman build --target ${dockerStageDeploy} -t \"${env.fullECRRepoName}:${env.versionNumber}\" ${env.dockerBuildArgs} -f ${dockerfileName} ${dockerfilePath};
+                //             """, label: 'Update Release Environment')
+                //     } else {
+                //         echo "${env.TRACE_MESSAGE} Image ${ecrRepoName}:${versionNumber} already exists"
+                //     }
+                // }
             }   
         } catch (Exception any) {
             env.TRACE_MESSAGE = "[JTE:ERROR:${stepName}]"
