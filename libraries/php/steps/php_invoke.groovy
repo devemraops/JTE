@@ -16,6 +16,7 @@ void call() {
     String container = config?.podman?.container ?: 'podman-container'
     String jteVersion = config?.jteVersion ?: '1.0.0'
     String showSlackNotifications =config?.showSlackNotifications == true
+    String slackChannel = config?.slackChannel?: '#jenkins-build-notifications'
     String dockerLogLevel = config?.dockerLogLevel?: 'debug' //warn
     String codacyApiToken = config?.codacyApiToken?: 'CODACY_PROJECT_TOKEN'
 
