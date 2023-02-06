@@ -27,7 +27,7 @@ void call() {
         break
         // case 'deploying':
         // stepName = 'deploy'
-        default
+        default:
         error("step name must be readiness,testing and deploying got ${stepContext.name}")
     }
     stage(stepName) {
