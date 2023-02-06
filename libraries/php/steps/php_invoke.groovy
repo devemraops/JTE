@@ -1,7 +1,7 @@
 @StepAlias(['prepare_tools','source_test'])
 void call() {
     String stepName = 'prepare'
-    String accountID = config?.accountID ?: '541906215541'
+    String accountId = config?.accountId ?: '541906215541'
     String region = config?.region ?: 'us-east-1'
     String ecrRepoName = config?.ecrRepoName ?: 'lut'
     String gitUrl = config?.gitUrl ?: 'github.com'
