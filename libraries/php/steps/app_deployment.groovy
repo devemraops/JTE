@@ -70,7 +70,7 @@ void call() {
                     //     env.imageDigest = sh(returnStdout: true, script: """#!/bin/bash
                     //         podman image inspect ${env.fullECRRepoName}:${env.versionNumber} -f '{{join.RepoDigest \",\"}}'
                     //         """, label: 'Get digest in place sync').trim()
-                    // }
+                     }
                 }
                 // env.deployed = true
                 // env.builDesc += "\n${ecrUrl}"
