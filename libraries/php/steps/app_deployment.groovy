@@ -38,14 +38,12 @@ void call() {
                 // }
                 container(dockerContainer) {
                     def login = ecrLogin(registryIds: [accountId]).replace('docker','podman')
-                    // String dockerInfo = dockerLogLevel == 'debug' ? 'podman info --debug' : 'podman version'
+                    String dockerInfo = dockerLogLevel == 'debug' ? 'podman info --debug' : 'podman version'
                     // echo "${env.TRACE_MESSAGE} Logged into ECR"
-                    def ret = sh(script: 'ls', returnStdout: true)
-                    println ret
                     sh(script: """#!/bin/bash
                         #set -e +o pipefail;                       
                         ${login}
-                         ${ret}
+                        ${dockerInfo}
                         podman system prune -a --force &&
                         podman build -t 541906215541.dkr.ecr.us-east-1.amazonaws.com/lut:{env.BUILD_NUMBER} . &&
                         podman push 541906215541.dkr.ecr.us-east-1.amazonaws.com/lut:{env.BUILD_NUMBER} &&
