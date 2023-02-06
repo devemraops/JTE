@@ -84,6 +84,7 @@ void call() {
                 //         echo "${env.TRACE_MESSAGE} Image ${ecrRepoName}:${versionNumber} already exists"
                 //     }
                 // }
+                def images = ecrListImages(repositoryName: 'lut')
                
         } catch (Exception any) {
             env.TRACE_MESSAGE = "[JTE:ERROR:${stepName}]"
