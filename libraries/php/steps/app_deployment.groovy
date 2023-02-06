@@ -14,24 +14,24 @@ void call() {
     String deployReleaseStage = config?.podman?.deployReleaseStage ?: 'release'
     String deployStage = config?.podman?.deployStage ?: 'deployer'
     String testStage = config?.podman?.testStage ?: 'tester'
-    String container = config?.podman?.container ?: 'podman-container'
+    String dockerContainer = config?.podman?.container ?: 'podman-container'
     String jteVersion = config?.jteVersion ?: '1.0.0'
     String dockerfileName = config?.docker?.fileName?: 'docker/php-fpm/Dockerfile'
     String dockerfilePath = config?.docker?.filePath?: 'docker/php-fpm/.'
     String dockerStageDeploy =config?.docker?.deployStage?: 'final'
-    String dockerContainer = config?.dockerContainer?:'podman'
+    // String dockerContainer = config?.dockerContainer?:'podman'
     String dockerLogLevel = config?.dockerLogLevel?: 'debug' //warn
     String codacyApiToken = config?.codacyApiToken?: 'CODACY_PROJECT_TOKEN'
 
     stage(stepName) {
         try {
             env.TRACE_MESSAGE = "[JTE:${stepName}]"
-            echo "${env.TRACE_MESSAGE}- Started for ${applicationType}"
+            // echo "${env.TRACE_MESSAGE}- Started for ${applicationType}"
             if (applicationType == 'eks' || applicationType == 'ecr' || applicationType == 'ecs') {
                 GString ecrUrl = "<https://${region}.console.aws.amazon.com/ecr/repositories/private/${accountId}/${ecrRepoName}?region=${region}|ECR>"
                 }
             if ((env.BRANCH_NAME == env.masterBranch || env.TAG_NAME) && env.releaseEnv == 'qa') {
-                echo "${env.TRACE_MESSAGE} ${env.buildDesc}"
+                // echo "${env.TRACE_MESSAGE} ${env.buildDesc}"
                 //only delete the latest image if there is one
                 // if (env.latestDigest != 'none') {
                 //     ecrDeleteImage(repositoryName: ecrRepoName, registryIds: [accountId], imageIds: [['imageDigest': env.latestDigest, 'imageTag': env.versionNumber]])
