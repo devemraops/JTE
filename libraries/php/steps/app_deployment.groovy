@@ -37,7 +37,13 @@ void call() {
                 // if (env.latestDigest != 'none') {
                 //     ecrDeleteImage(repositoryName: ecrRepoName, registryIds: [accountId], imageIds: [['imageDigest': env.latestDigest, 'imageTag': env.versionNumber]])
                 // }
-                parameters: [[$class: 'StringParameterValue', name: 'NEW_RELIC_AGENT_VERSION', value: '']]
+                properties([
+                    parameters([
+                        string(defaultValue: '', name: 'NEW_RELIC_AGENT_VERSION', trim: false),  
+                        // string(defaultValue: '11', description: '', name: 'Version', trim: false)
+                    ])
+                ])
+
                 if (stepName == 'build') {
                     def scmVars = checkout scm
                 
