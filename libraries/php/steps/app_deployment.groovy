@@ -50,7 +50,7 @@ void call() {
                         echo \"${env.TRACE_MESSAGE} build via podman with build --target ${dockerStageTest} -t \"${env.fullECRRepoName}:testing\" ${env.dockerBuildArgs} -f ${dockerfileName} ${dockerfilePath}\";
                         podman system prune -a --force;
                         echo \"${env.TRACE_MESSAGE} Prune run\";
-                        podman build --target ${dockerStageDeploy} -t \"${env.fullECRRepoName}:${env.versionNumber}\" ${env.dockerBuildArgs} -f ./Dockerfile;
+                        podman build --target ${dockerStageDeploy} -t \"${env.fullECRRepoName}:${env.versionNumber}\" ${env.dockerBuildArgs} .;
                         echo \n"${env.TRACE_MESSAGE} Image built run\";
                         podman push \"${env.fullECRRepoName}:${env.versionNumber}\";
                         echo \"${env.TRACE_MESSAGE} Image ${env.fullECRRepoName}:${env.versionNumber} updated\";
