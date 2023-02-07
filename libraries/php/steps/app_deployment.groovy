@@ -64,7 +64,7 @@ void call() {
                     //         podman image inspect ${env.fullECRRepoName}:${env.versionNumber} -f '{{join.RepoDigest \",\"}}'
                     //         """, label: 'Get digest in place sync').trim()
                      }
-                     notifyProductionDeploy()
+                     
                 }
                 // env.deployed = true
                 // env.builDesc += "\n${ecrUrl}"
@@ -86,7 +86,10 @@ void call() {
                 //         echo "${env.TRACE_MESSAGE} Image ${ecrRepoName}:${versionNumber} already exists"
                 //     }
                 // }
-                def images = ecrListImages(repositoryName: 'lut')
+                  if (showSlackNotifications) {
+                    String slackIcon = successSlackIcon()
+                    slackSend color: 'good', channel: "${slackChannel}", message: "${env.buildDesc} ${slackIcon}"
+                  }
                
         } catch (Exception any) {
             env.TRACE_MESSAGE = "[JTE:ERROR:${stepName}]"
@@ -106,17 +109,17 @@ void call() {
     }
 }
 
-// static String successSlackIcon() {
-//     List<String> icons = [':unicorn_face:', ':beer:', ':bee:', ':man_dancing:', ':boogie-wookie:']
-//     return icons[new Random().nextInt(icons.size())]
-// }
-
-def notifyProductionDeploy() {
-  def icons = [":unicorn_face:", ":beer:", ":bee:", ":man_dancing:",
-    ":party_parrot:", ":ghost:", ":dancer:", ":scream_cat:"]
-  def randomIndex = (new Random()).nextInt(icons.size())
-
-  def message = "@here Build <${env.BUILD_URL}|${currentBuild.displayName}> " +
-    "successfuly deployed to the production ${icons[randomIndex]}"
-slackSend(message: message, channel: '#channel', color: 'good', token: 'token')
+static String successSlackIcon() {
+    List<String> icons = [':unicorn_face:', ':beer:', ':bee:', ':man_dancing:', ':boogie-wookie:']
+    return icons[new Random().nextInt(icons.size())]
 }
+
+// def notifyProductionDeploy() {
+//   def icons = [":unicorn_face:", ":beer:", ":bee:", ":man_dancing:",
+//     ":party_parrot:", ":ghost:", ":dancer:", ":scream_cat:"]
+//   def randomIndex = (new Random()).nextInt(icons.size())
+
+//   def message = "@here Build <${env.BUILD_URL}|${currentBuild.displayName}> " +
+//     "successfuly deployed to the production ${icons[randomIndex]}"
+// slackSend(message: message, channel: '#channel', color: 'good', token: 'token')
+// }
