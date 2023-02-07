@@ -110,8 +110,9 @@ void call() {
 }
 
 static String successSlackIcon() {
-    List<String> icons = [':unicorn_face:', ':beer:', ':bee:', ':man_dancing:', ':boogie-wookie:']
-    return icons[new Random().nextInt(icons.size())]
+    def icons = [':unicorn_face:', ':beer:', ':bee:', ':man_dancing:', ':boogie-wookie:']
+    int randomIndex = (new Random()).nextInt(icons.size())
+    return icons[randomIndex]
 }
 
 // def notifyProductionDeploy() {
