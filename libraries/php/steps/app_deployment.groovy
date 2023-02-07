@@ -37,14 +37,14 @@ void call() {
                 // if (env.latestDigest != 'none') {
                 //     ecrDeleteImage(repositoryName: ecrRepoName, registryIds: [accountId], imageIds: [['imageDigest': env.latestDigest, 'imageTag': env.versionNumber]])
                 // }
-                properties([
-                    parameters([
-                        string(defaultValue: '', name: 'NEW_RELIC_AGENT_VERSION'),
-                        string(defaultValue: '', name: 'IMAGE_RELEASE_TAG', description: 'what is the image tag'),
-                        string(defaultValue: '', name: 'NEW_RELIC_NAME',  description: 'the name will be display on the NR UI')
-                        // string(defaultValue: '11', description: '', name: 'Version', trim: false)
-                    ])
-                ])
+                // properties([
+                //     parameters([
+                //         string(defaultValue: '', name: 'NEW_RELIC_AGENT_VERSION'),
+                //         string(defaultValue: '', name: 'IMAGE_RELEASE_TAG', description: 'what is the image tag'),
+                //         string(defaultValue: '', name: 'NEW_RELIC_NAME',  description: 'the name will be display on the NR UI')
+                //         // string(defaultValue: '11', description: '', name: 'Version', trim: false)
+                //     ])
+                // ])
 
                 if (stepName == 'build') {
                     
