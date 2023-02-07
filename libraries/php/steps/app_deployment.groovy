@@ -86,10 +86,12 @@ void call() {
                 //         echo "${env.TRACE_MESSAGE} Image ${ecrRepoName}:${versionNumber} already exists"
                 //     }
                 // }
+                  String slackIcon = successSlackIcon()
                   if (showSlackNotifications) {
-                    String slackIcon = successSlackIcon()
                     slackSend color: 'good', channel: "${slackChannel}", message: "${env.buildDesc} ${slackIcon}"
                   }
+
+                  echo "${stepName} - Finished"
                
         } catch (Exception any) {
             env.TRACE_MESSAGE = "[JTE:ERROR:${stepName}]"
